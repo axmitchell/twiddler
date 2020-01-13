@@ -20,6 +20,9 @@
 
             button {
               margin: 5px;
+              background-color: green;
+              color: black;
+              border: none;
             }
     </style>
   </head>
@@ -30,33 +33,32 @@
         var $homeButton = $('<button class=' + 'home' + '>Return Home</button>');
         var $body = $('body');
         
-        $body.html('<h1>TWIDDLER HOME</h1>');
-
+        $body.html('<h1>TWIDDLER HOME</h1><main></main>');
         var index = 0;
         while(index <= streams.home.length - 1){
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
           $tweet.html("<span>@" + tweet.user + "</span>" + ' : ' + tweet.message + ' ('+ tweet.created_at.toString().slice(0, 24) + ')')
-          $tweet.appendTo($body);
+          $tweet.prependTo('main');
           index++;
         }
-        $refreshButton.appendTo($body);
+        $refreshButton.prependTo('main');
       
 
         $(document).on('click', 'span', function(){
         //$('span').click(function(){ // --------- WHY DOESN'T THIS WORK WITH NEW TWEETS ??
           var $currentUser = $(this).text().slice(1);
-          $body.html('<h1>@' + $currentUser + '\'s' + ' timeline</h1>');
+          $body.html('<h1>@' + $currentUser + '\'s' + ' timeline</h1><main></main>');
 
           var userCounter = 0;
           while(userCounter <= streams.users[$currentUser].length - 1){
             var tweet = streams.users[$currentUser][userCounter];
             var $tweet = $('<div></div>');
             $tweet.html("<span>@" + $currentUser + "</span>" + ' : ' + tweet.message + ' ('+ tweet.created_at.toString().slice(0, 24) + ')')
-            $tweet.appendTo($body);
+            $tweet.prependTo('main');
             userCounter++;
           }
-          $homeButton.appendTo($body)
+          $homeButton.prependTo('main')
         })
 
         $(document).on('click', '.refresh', function(){
@@ -66,24 +68,24 @@
             var tweet = streams.home[index];
             var $tweet = $('<div></div>');
             $tweet.html("<span>@" + tweet.user + "</span>" + ' : ' + tweet.message + ' ('+ tweet.created_at.toString().slice(0, 24) + ')')
-            $tweet.appendTo($body);
+            $tweet.prependTo('main');
             index++;
           }
-          $refreshButton.appendTo($body);
+          $refreshButton.prependTo('main');
         })
         
         $(document).on('click', '.home', function(){
         //$homeButton.click(function(){
-          $body.html('<h1>TWIDDLER HOME</h1>');
+          $body.html('<h1>TWIDDLER HOME</h1><main></main>');
           var index = 0;
           while(index <= streams.home.length - 1){
             var tweet = streams.home[index];
             var $tweet = $('<div></div>');
             $tweet.html("<span>@" + tweet.user + "</span>" + ' : ' + tweet.message + ' ('+ tweet.created_at.toString().slice(0, 24) + ')')
-            $tweet.appendTo($body);
+            $tweet.prependTo('main');
             index++;
           }
-          $refreshButton.appendTo($body);
+          $refreshButton.prependTo('main');
         })
       });
     </script>
